@@ -1,37 +1,165 @@
 ﻿#include <iostream>
-#include "conio.h"
-#include "avl_tree.h"
-#include "abstract factory.h"
-#include "Interface.h"
 #include <vector>
+#include <ctime>
+#include "user_interface.h"
 
 using namespace std;
 
-Doc_form* InputNewDoc()
+Doc_form* InputNewDoc(int type)
 {
 	Doc_form* doc = new Doc_form;
-	int val;
-	cout << "Enter Documents Id:  " << endl;
-	cin >> val;
-	doc->info.id = val;
+	int intval;
+	string strval;
+	if (type == 1)
+	{
+		// Id
+		cout << "Enter Documents Id:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.id = intval;
+	}
+	else
+	{
+		// Id
+		cout << "Enter Documents Id:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.id = intval;
+
+		//  Name
+		cout << "Enter Documents Name:  " << endl;
+		cin >> strval;
+		if (cin.fail())
+			return NULL;
+		doc->info.name = strval;
+
+		//  Weight
+		cout << "Enter Documents Weight:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.weight = intval;
+
+		//  Sender
+		cout << "Enter Documents Sender:  " << endl;
+		cin >> strval;
+		if (cin.fail())
+			return NULL;
+		doc->info.sender = strval;
+
+		//  Recipient
+		cout << "Enter Documents Recipient:  " << endl;
+		cin >> strval;
+		if (cin.fail())
+			return NULL;
+		doc->info.recipient = strval;
+
+		//  Price product
+		cout << "Enter Documents Price product:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.price_product = intval;
+
+		//  Price deliver
+		cout << "Enter Documents Price deliver:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.price_delivery = intval;
+
+		//  Content
+		cout << "Enter Documents Content:  " << endl;
+		cin >> strval;
+		if (cin.fail())
+			return NULL;
+		doc->info.content = strval;
+
+		//  Point sender
+		cout << "Enter Documents Point sender:  " << endl;
+		cin >> intval;
+		if (cin.fail())
+			return NULL;
+		doc->info.sender = intval;
+
+		//  Point deliver
+		cout << "Enter Documents Point deliver:  " << endl;
+		cin >> strval;
+		if (cin.fail())
+			return NULL;
+		doc->info.point_deliver = strval;
+	}
+		return doc;
+}
+
+Doc_form* InputSearchCritNewDoc(int type)
+{
+	Doc_form* doc = new Doc_form;
+	int intval;
+	string strval;
+	switch(type)
+	{
+		case 0:// Id
+			cout << "Enter Documents Id:  " << endl;
+			cin >> intval;
+			doc->info.id = intval;
+			break;
+		case 1://  Name
+			cout << "Enter Documents Name:  " << endl;
+			cin >> strval;
+			doc->info.name = strval;
+			break;
+		case 2://  Weight
+			cout << "Enter Documents Weight:  " << endl;
+			cin >> intval;
+			doc->info.weight = intval;
+			break;
+		case 3://  Sender
+			cout << "Enter Documents Sender:  " << endl;
+			cin >> strval;
+			doc->info.sender = strval;
+			break;
+		case 4://  Recipient
+			cout << "Enter Documents Recipient:  " << endl;
+			cin >> strval;
+			doc->info.recipient = strval;
+			break;
+		case 5://  Price product
+			cout << "Enter Documents Price product:  " << endl;
+			cin >> intval;
+			doc->info.price_product = intval;
+			break;
+		case 6://  Price deliver
+			cout << "Enter Documents Price deliver:  " << endl;
+			cin >> intval;
+			doc->info.price_delivery = intval;
+			break;
+		case 7://  Content
+			cout << "Enter Documents Content:  " << endl;
+			cin >> strval;
+			doc->info.content = strval;
+			break;
+		case 8://  Point sender
+			cout << "Enter Documents Point sender:  " << endl;
+			cin >> intval;
+			doc->info.sender = intval;
+			break;
+		case 9://  Point deliver
+			cout << "Enter Documents Point deliver:  " << endl;
+			cin >> strval;
+			doc->info.point_deliver = strval;
+			break;
+	}
 	return doc;
 }
 
-void ClientCode(const AbstractFactory& factory, int numDoc, vector <Doc_form*> Orders, Interface<Doc_form*>* collection) {
-	for (int i = 0; i < numDoc; i++)
-	{
-		const AbstractDocForm* new_Doc = factory.CreateDocForm();
-		Orders.push_back(new_Doc->CreateDocForm());
-		delete new_Doc;
-	}
-	for (int i = 0; i < numDoc; i++)
-	{
-		collection->insert(Orders[i]);
-	}
-}
 
 int main()
 {
+	srand(time(NULL));
+
 	const char* point[10]
 	{
 		"--->",
@@ -51,54 +179,24 @@ int main()
 	};
     int code;
 	int pos = 0;
-	Strategy <Doc_form*>* compId = new DocId_strategy;
-	//AVLTree<Doc_form*>* tree = new AVLTree<Doc_form*>(compId);
+	int CollType = 0, DocNum = 0, SearchType = 0;
 	Doc_form* value = new Doc_form;
-	int value1;
 	vector <Doc_form*> Orders;
 	DocFactory* f1 = new DocFactory();
 
 	Interface<Doc_form*>* component = new ConcretteInterface<Doc_form*>;
 
-	Interface<Doc_form*>* tree_decor = new TreeDecorator<Doc_form*, DocId_strategy>(component);
+	//Interface<Doc_form*>* tree_decor = new TreeDecorator<Doc_form*, DocId_strategy>(component);
 
 	Interface<Doc_form*>* queue_decor = new QueueDecorator<Doc_form*>(component);
 
-	while (1)
-	{
-		system("cls");
-		cout << "Select the number of orders" << endl;
-		cout << "1: 10" << endl;
-		cout << "2: 100" << endl;
-		cout << "3: 1000" << endl;
-		cout << "4: 500000" << endl;
-		cin >> code;
-		switch (code)
-		{
-		case 1://10
-			value1 = 10;
-			break;
-		case 2://100
-			value1 = 100;
-			break;
-		case 3://1000
-			value1 = 1000;
-			break;
-		case 4://1000
-			value1 = 500000;
-			break;
-		}
-		ClientCode(*f1, value1, Orders, tree_decor);
-		ClientCode(*f1, value1, Orders, queue_decor);
-		break;
-	}
+	SearchType = SearchCriteria();
+	Interface<Doc_form*>* tree_decor = TreeStrategy<Doc_form*>(SearchType, component);
+	DocNum = NumRecords();
+	CollType = Collection_Type(*f1, DocNum, Orders, tree_decor, queue_decor);
+
     while (1)
     {
-		system("cls");
-		cout << "Select type of collection" << endl;
-		cout << "1: Tree" << endl;
-		cout << "2: " << endl;
-
 		system("cls");
 		for (int i = 0; i < 4; i++)
 		{
@@ -134,27 +232,34 @@ int main()
 				switch (pos)
 				{
 				case 0://  добавление
-					value = InputNewDoc();
-					//tree->insert_(value);
-					//tree_decor->insert(value);
-					queue_decor->insert(value);
+					value = InputNewDoc(0);
+					if (value == NULL)
+					{
+						cout << "Incorrectly entered data!" << endl;
+						_getch();
+						break;
+					}
+					if(CollType == 0) tree_decor->insert(value);
+					else if(CollType == 1) queue_decor->insert(value);
 					//tree->insert_(value);
 					break;
 				case 1://  вывод всех
 					//tree->inorder(tree->root);
-					//tree_decor->inorder();
-					queue_decor->inorder();
+					if (CollType == 0) tree_decor->inorder();
+					else if (CollType == 1) queue_decor->inorder();
 					_getch();
 					break; 
 				case 2://  удаление
-					cout << "Enter key what you want to delete:  " << endl;
-					value = InputNewDoc();
+					value = InputSearchCritNewDoc(SearchType);
 					//tree->remove(tree->root, value);
+					if (CollType == 0) tree_decor->remove(value);
+					else if (CollType == 1) queue_decor->remove(value, SearchStrategy<Doc_form*>(SearchType));
 					break;
-				case 3://  поиск по ключу
-					cout << "Enter key for search:  ";
-					value = InputNewDoc();
+				case 3://  поиск по 
+					value = InputSearchCritNewDoc(SearchType);
 					//if(tree->findnode(tree->root, value)) cout << *(tree->findnode(tree->root, value)->Data) << endl;
+					if (CollType == 0) tree_decor->find(value, SearchStrategy<Doc_form*>(SearchType));
+					else if (CollType == 1) queue_decor->find(value, SearchStrategy<Doc_form*>(SearchType));
 					_getch();
 					break;
 				case 4://  exit

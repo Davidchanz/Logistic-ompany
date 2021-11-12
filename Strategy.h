@@ -9,71 +9,6 @@ template < typename T/*, typename _allocator = allocator<T>*/>
 	 virtual int compare(const T & obj1, const T & obj2) const = 0;
 	 };
 
-//12 class Documents_inn_strategy : public Strategy<Doc_form*> {
-//13 public:
-//	14 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
-//		15 if (obj1->info.inn != obj2->info.inn) {
-//			16 return obj1->info.inn < obj2->info.inn ? -1 : 1;
-//			17
-//		}
-//		18 else {
-//			19 return 0;
-//			20
-//		}
-//		21
-//	}
-//	22
-//};
-//23
-//24 class Documents_name_strategy : public Strategy<Doc_form*> {
-//25 public:
-//	26 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
-//		27 if (obj1->info.name != obj2->info.name) {
-//			28 return obj1->info.name < obj2->info.name ? -1 : 1;
-//			29
-//		}
-//		30 else {
-//			31 return 0;
-//			32
-//		}
-//		33
-//	}
-//	34
-//};
-//35
-//36 class Documents_surname_strategy : public Strategy<Doc_form*> {
-//37 public:
-//	38 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
-//		39 if (obj1->info.surname != obj2->info.surname) {
-//			40 return obj1->info.surname < obj2->info.surname ? -1 : 1;
-//			41
-//		}
-//		42 else {
-//			43 return 0;
-//			44
-//		}
-//		45
-//	}
-//	46
-//};
-//47
-//48 class Documents_citizenship_strategy : public Strategy<Doc_form*> {
-//49 public:
-//	50 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
-//		51 if (obj1->info.citizenship != obj2->info.citizenship) {
-//			52 return obj1->info.citizenship < obj2->info.citizenship ? -1 : 1;
-//			12
-//				53
-//		}
-//		54 else {
-//			55 return 0;
-//			56
-//		}
-//		57
-//	}
-//	58
-//};
-
  class DocId_strategy : public Strategy<Doc_form*> {
  public:
 	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
@@ -85,3 +20,111 @@ template < typename T/*, typename _allocator = allocator<T>*/>
 		 }
 	 }
 };
+
+ class DocName_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.name != obj2->info.name) {
+			 return obj1->info.name < obj2->info.name ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocWeight_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.weight != obj2->info.weight) {
+			 return obj1->info.weight < obj2->info.weight ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocSender_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.sender != obj2->info.sender) {
+			 return obj1->info.sender < obj2->info.sender ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocRecipient_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.recipient != obj2->info.recipient) {
+			 return obj1->info.recipient < obj2->info.recipient ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocPriceProduct_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.price_product != obj2->info.price_product) {
+			 return obj1->info.price_product < obj2->info.price_product ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocPriceDelivery_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.price_delivery != obj2->info.price_delivery) {
+			 return obj1->info.price_delivery < obj2->info.price_delivery ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocContect_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.content != obj2->info.content) {
+			 return obj1->info.content < obj2->info.content ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocPointSender_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.point_sender != obj2->info.point_sender) {
+			 return obj1->info.point_sender < obj2->info.point_sender ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };
+
+ class DocPointDeliver_strategy : public Strategy<Doc_form*> {
+ public:
+	 int compare(Doc_form* const& obj1, Doc_form* const& obj2) const override {
+		 if (obj1->info.point_deliver != obj2->info.point_deliver) {
+			 return obj1->info.point_deliver < obj2->info.point_deliver ? -1 : 1;
+		 }
+		 else {
+			 return 0;
+		 }
+	 }
+ };

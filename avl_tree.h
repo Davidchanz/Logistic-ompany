@@ -31,9 +31,11 @@ public:
 	node* findmin(node* p);
 	node* removemin(node* p);
 	node* remove(node* p, T k);
+	void remove_(T k);
 	void inorder(node* p);
 	void inorder_();
 	node* findnode(node* p, T data);
+	void findnode_(T data);
 	void change(node* p, int k);
 	node* create_node(T k);
 };
@@ -129,8 +131,10 @@ template<typename T>typename AVLTree<T>::node* AVLTree<T>::insert(node* p, T dat
 	if (!p) return create_node(data);
 	if (this->comparator->compare(data, p->Data) < 0)
 		p->left = insert(p->left, data);
-	else
+	else if(this->comparator->compare(data, p->Data) > 0)
 		p->right = insert(p->right, data);
+	else
+		return p;
 	return balance(p);
 }
 
@@ -150,6 +154,11 @@ template<typename T>typename AVLTree<T>::node* AVLTree<T>::removemin(node* p)
 		return p->right;
 	p->left = removemin(p->left);
 	return balance(p);
+}
+
+template<typename T> void AVLTree<T>::remove_(T k)
+{
+	remove(root, k);
 }
 
 template<typename T>typename AVLTree<T>::node* AVLTree<T>::remove(node* p, T data)
@@ -208,6 +217,11 @@ template<typename T>typename AVLTree<T>::node* AVLTree<T>::findnode(node* p, T d
 	{
 		return p;
 	}
+}
+
+template<typename T> void AVLTree<T>::findnode_(T data)
+{
+	if (findnode(root, data)) cout << *(findnode(root, data)->Data) << endl;
 }
 
 template<typename T> void AVLTree<T>::change(node* p, int k)

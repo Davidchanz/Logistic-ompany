@@ -7,6 +7,8 @@
 
 #include<iostream>
 #include<queue>
+#include<vector>
+#include "Strategy.h"
 
 using namespace std;
 
@@ -15,6 +17,9 @@ public:
     virtual ~Interface() = default;
     virtual void insert(Data data) = 0;
     virtual void inorder() = 0;
+    virtual void find(Data data, Strategy<Data>* comp) = 0;
+    virtual void remove(Data data) = 0;
+    virtual void remove(Data data, Strategy<Data>* comp) = 0;
 };
 
 template<typename Data>
@@ -26,6 +31,18 @@ public:
         
     }
     void inorder()
+    {
+
+    }
+    void find(Data data, Strategy<Data>* comp)
+    {
+
+    }
+    void remove(Data data)
+    {
+
+    }
+    void remove(Data data, Strategy<Data>* comp)
     {
 
     }
@@ -51,13 +68,25 @@ public:
    {
 
    }
+   void find(Data data, Strategy<Data>* comp)
+   {
+
+   }
+   void remove(Data data)
+   {
+
+   }
+   void remove(Data data, Strategy<Data>* comp)
+   {
+
+   }
 };
 
 template<typename Data, typename StrategyType>
 class TreeDecorator :public Decorator<Data> {
 public:
-    Strategy<Data>* compId;/* = new DocId_strategy;*/
-    AVLTree<Data>* tree;/* = new AVLTree<Data>(compId);*/
+    Strategy<Data>* compId;
+    AVLTree<Data>* tree;
     TreeDecorator(Interface<Data>* interface_) 
     : Decorator<Data>(interface_), compId(new StrategyType), tree(new AVLTree<Data>(compId))
     {
@@ -71,23 +100,74 @@ public:
     {
         tree->inorder_();
     }
+    void find(Data data, Strategy<Data>* comp)
+    {
+        tree->findnode_(data);
+    }
+    void remove(Data data)
+    {
+        tree->remove_(data);
+    }
 };
 
 template<typename Data>
 class QueueDecorator :public Decorator<Data> {
 public:
     queue<Data> queue_;
-    Data data;
-    QueueDecorator(Interface<Data>* interface_) :Decorator<Data>(interface_) {}
+    QueueDecorator(Interface<Data>* interface_)
+    : Decorator<Data>(interface_) {}
     void insert(Data data) 
     {
         queue_.push(data);
     }
     void inorder()
     {
-        for (int i = 0; i < queue_.size() - 1; i++)
+        vector<Data> tmp;
+        while(queue_.size() > 0)
         {
             cout << *(queue_.front()) << endl;
+            tmp.push_back(queue_.front());
+            queue_.pop();
+        }
+        for (auto it = tmp.begin(); it != tmp.end(); it++)
+        {
+            queue_.push(*it);
+        }
+    }
+    void find(Data data, Strategy<Data>* comp)
+    {
+        vector<Data> tmp;
+        bool finf_flg = false;
+        while (queue_.size() > 0)
+        {
+            if (comp->compare(data, queue_.front()) == 0)
+            {
+                finf_flg = true;
+                cout << *(queue_.front()) << endl;
+            }
+            tmp.push_back(queue_.front());
+            queue_.pop();
+        }
+        for (auto it = tmp.begin(); it != tmp.end(); it++)
+        {
+            queue_.push(*it);
+        }
+        if (!finf_flg)
+            cout << "Element not found!" << endl;
+    }
+    void remove(Data data, Strategy<Data>* comp)
+    {
+        vector<Data> tmp;
+        //Strategy<Data>* comp = new DocId_strategy;
+        while (queue_.size() > 0)
+        {
+            if (!(comp->compare(data, queue_.front()) == 0))
+                tmp.push_back(queue_.front());
+            queue_.pop();
+        }
+        for (auto it = tmp.begin(); it != tmp.end(); it++)
+        {
+            queue_.push(*it);
         }
     }
 };
