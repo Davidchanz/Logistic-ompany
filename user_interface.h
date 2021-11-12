@@ -39,7 +39,7 @@ int NumRecords()
 		"1. 10",
 		"2. 100",
 		"3. 1000",
-		"4. 500000"
+		"4. 5000"
 	};
 	int pos = 0;
 	int code;
@@ -92,7 +92,7 @@ int NumRecords()
 				value1 = 1000;
 				break;
 			case 3://1000
-				value1 = 500000;
+				value1 = 5000;
 				break;
 			}
 			break;

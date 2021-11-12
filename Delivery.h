@@ -145,20 +145,21 @@ public:
 		int j = 0;
 		string string;
 		
-			for (int i = 0; i < size; i++)
-			{
+		for (int i = 0; i < size; i++)
+		{
 			j = rand() % 50 + 1;
 			
-				if (j > size - i) j = size - i;
-			i += j;
+				if (j > size - i) 
+					j = size - i;
+				i += j;
 			
 				for (int k = 0; k < j; k++)
 				{
-				string += (char)(rand() % 26 + 97);
+					string += (char)(rand() % 26 + 97);
 				}
 			break;
 			string += ' ';
-			}
+		}
 		return string;
 	}
 	
@@ -166,12 +167,12 @@ public:
 	{
 		string tmp;
 		for (int i = 0; i < size; i++)
-			{
+		{
 			if (i == 10)
 				break;
 			int j = (rand() % 9);
 			tmp += to_string(j);
-			}
+		}
 		return stoi(tmp);
 	}
 };

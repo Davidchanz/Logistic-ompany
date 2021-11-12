@@ -17,12 +17,14 @@ public:
         newDoc->filling();
         return newDoc;
     }
+    ~ConcreteDocForm() {};
 };
 
 class AbstractFactory 
 {
 public:
     virtual AbstractDocForm* CreateDocForm() const = 0;
+    virtual ~AbstractFactory() {};
 };
 
 class DocFactory : public AbstractFactory 
@@ -32,4 +34,5 @@ public:
     {
         return new ConcreteDocForm();
     }
+    ~DocFactory() {};
 };

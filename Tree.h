@@ -9,5 +9,4 @@ public:
 	{
 
 	}
-	//virtual void insert(T&& val) = 0;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "Delivery.h"
 
-template < typename T/*, typename _allocator = allocator<T>*/>
+template < typename T>
  class Strategy
  {
  public:
